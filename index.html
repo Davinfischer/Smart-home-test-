@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zuhause</title>
+<meta name="theme-color" content="#101418" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Zuhause">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <div class="title-block">
+      <h1>Zuhause</h1>
+      <p id="summary" class="summary"></p>
+    </div>
+    <div class="top-actions">
+      <span id="pill" class="pill" role="status"></span>
+      <button id="btn-settings" class="icon-btn" aria-label="Einstellungen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="colhead">
+    <h2 class="colt">Räume</h2>
+    <div class="colhead-r">
+      <h2 class="colt">Geräte</h2>
+      <input id="search" class="search" type="search" placeholder="Suchen" autocomplete="off" aria-label="Gerät suchen">
+    </div>
+  </div>
+  <div class="split">
+    <nav id="rooms" class="col rooms" aria-label="Räume"></nav>
+    <div id="devices" class="col devices" aria-live="polite"></div>
+  </div>
+</main>
+<div class="addbar"><button id="btn-all" class="btn add" aria-pressed="false">Alle Geräte</button></div>
+
+<section id="sheet" class="sheet" hidden aria-modal="true" role="dialog" aria-labelledby="sheet-title">
+  <div class="sheet-body">
+    <div class="sheet-head">
+      <h2 id="sheet-title">Einstellungen</h2>
+      <button id="sheet-close" class="icon-btn" aria-label="Schließen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <h3 class="sec">Geräte</h3>
+    <div class="setlist">
+      <button class="setrow" id="set-devices"><span class="st">Geräte neu laden</span><span class="sd">Liest Räume und Geräte noch einmal von deinem System.</span></button>
+      <button class="setrow" id="set-add"><span class="st">Gerät hinzufügen</span><span class="sd">So kommt ein neues Gerät in die App.</span></button>
+      <button class="setrow" id="set-areas"><span class="st">Räume verwalten</span><span class="sd">So änderst du Räume und Zuordnungen.</span></button>
+    </div>
+    <p id="set-note" class="fine set-note" role="status" hidden></p>
+
+    <h3 class="sec">Verbindung</h3>
+    <div class="seg wide" role="tablist" aria-label="System wählen">
+      <button role="tab" id="bk-gira" aria-selected="true">Gira HomeServer</button>
+      <button role="tab" id="bk-ha" aria-selected="false">Home Assistant</button>
+    </div>
+
+    <div id="form-gira" class="bk">
+      <p class="lead">Die App verbindet sich direkt mit deinem Gira HomeServer im Heimnetz und zeigt dessen Räume und Geräte.</p>
+      <div class="field">
+        <label for="in-url">Adresse des HomeServers</label>
+        <input id="in-url" type="url" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://192.168.1.20">
+      </div>
+      <div class="field">
+        <label for="in-user">Benutzername</label>
+        <input id="in-user" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="in-pass">Passwort</label>
+        <input id="in-pass" type="password" autocomplete="current-password">
+      </div>
+    </div>
+
+    <div id="form-ha" class="bk" hidden>
+      <p class="lead">Home Assistant führt viele Marken (Hue, tado, Shelly, Homematic IP und mehr) zusammen. Zuhause zeigt alles an einem Ort.</p>
+      <div class="field">
+        <label for="ha-url">Adresse von Home Assistant</label>
+        <input id="ha-url" type="url" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://meinhaus.ui.nabu.casa">
+      </div>
+      <div class="field">
+        <label for="ha-token">Zugangstoken</label>
+        <input id="ha-token" type="password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Langlebiges Zugriffstoken einfügen">
+      </div>
+    </div>
+    <p id="form-error" class="form-error" role="alert" hidden></p>
+    <div class="btn-row">
+      <button id="btn-connect" class="btn primary">Verbinden</button>
+      <button id="btn-demo" class="btn">Demo ansehen</button>
+    </div>
+    <button id="btn-forget" class="link-btn" hidden>Gespeicherte Zugangsdaten löschen</button>
+
+    <details class="help" id="help-gira" open>
+      <summary>So verbindest du deinen HomeServer</summary>
+      <ol>
+        <li><strong>Voraussetzung.</strong> Gira HomeServer oder FacilityServer mit Firmware 4.10 oder neuer, mit aktiver IoT-REST-API (Version 2). Ob sie bei dir freigeschaltet ist, klärt dein Elektriker oder der Gira Project Assistant.</li>
+        <li><strong>Adresse.</strong> Trage die IP-Adresse des HomeServers ein, zum Beispiel 192.168.1.20. Dein Handy muss im selben WLAN sein.</li>
+        <li><strong>Zertifikat.</strong> Öffne die Adresse einmal in Safari und bestätige die Sicherheitswarnung. Der HomeServer nutzt ein selbst ausgestelltes Zertifikat.</li>
+        <li><strong>Anmeldung.</strong> Nimm einen Benutzer aus deinem Gira-System. Das Passwort wird nicht gespeichert, die App merkt sich nur einen Zugangsschlüssel.</li>
+        <li><strong>Auf den Home-Bildschirm.</strong> In Safari auf Teilen tippen, dann Zum Home-Bildschirm.</li>
+      </ol>
+      <p class="fine">Der Zugangsschlüssel bleibt nur auf diesem Gerät gespeichert.</p>
+    </details>
+    <details class="help" id="help-ha" open hidden>
+      <summary>So verbindest du Home Assistant</summary>
+      <ol>
+        <li><strong>Zentrale installieren.</strong> Home Assistant läuft auf einem kleinen Gerät im Heimnetz, zum Beispiel Home Assistant Green oder einem Raspberry Pi.</li>
+        <li><strong>Geräte hinzufügen.</strong> In Home Assistant unter Einstellungen, Geräte und Dienste, die Marken auswählen, die du besitzt.</li>
+        <li><strong>Token erstellen.</strong> In Home Assistant auf dein Profil tippen, ganz unten bei Sicherheit ein langlebiges Zugriffstoken anlegen und hier einfügen.</li>
+        <li><strong>Adresse eintragen.</strong> Für den Zugriff von unterwegs braucht die Adresse https. Am einfachsten geht das mit Home Assistant Cloud. Eine reine http-Adresse blockiert iOS auf dieser Seite.</li>
+        <li><strong>Auf den Home-Bildschirm.</strong> In Safari auf Teilen tippen, dann Zum Home-Bildschirm.</li>
+      </ol>
+      <p class="fine">Das Token bleibt nur auf diesem Gerät gespeichert.</p>
+    </details>
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
